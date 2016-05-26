@@ -31,6 +31,7 @@ namespace WindowsFormsApplication3
                 }
             };
         }
+        public Dijask dij;
         public int drawHandle;
         public int draw_int_indicator;
         public Database dbf;
@@ -40,6 +41,9 @@ namespace WindowsFormsApplication3
         public string MyConString;
         public OdbcDataAdapter ODA;
         public string opened_table;
+        public Shape fst;
+        public Shapefile fss;
+        
         public MapWinGIS.Point get_mouselocation(AxMapWinGIS._DMapEvents_MouseDownEvent _e, AxMapWinGIS.AxMap _axMap1)
         {
             MapWinGIS.Point pt = new MapWinGIS.Point();
@@ -72,6 +76,7 @@ namespace WindowsFormsApplication3
         
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //axMap1.AddLayer(fss,true);
             checkedListBox1.Items.Add(new CheckBox());
             opened_table = "";
             draw_int_indicator = 0;
@@ -95,7 +100,7 @@ namespace WindowsFormsApplication3
         {
             if (MyConnection.State == ConnectionState.Closed)
             {
-                MessageBox.Show("Plese connect to a database to advance to edit.");
+                MessageBox.Show("要编辑先连接数据库.");
                 Database db = new Database();
                 db.Show(this);
             }
@@ -116,12 +121,12 @@ namespace WindowsFormsApplication3
                         axMap1.SendMouseDown = false;
                         draw_int_indicator = 0;
                         draw_indicator.Text = "Draw Mode: OFF";
-                        MessageBox.Show("All your previous drawings would be discard!");
+                        MessageBox.Show("编辑将会丢失!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("You haven't select a table yet.");
+                    MessageBox.Show("未选择表.");
                 }
             }
         }
@@ -163,23 +168,211 @@ namespace WindowsFormsApplication3
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            string con = "MySQL:db1,user=root,password=123456,port=3306";
-            string ss = "Select * From geotest1";
-            drawHandle = axMap1.AddLayerFromDatabase(con, ss, true);
-            if (drawHandle == -1)
+            DatabaseToDisplay dtd = new DatabaseToDisplay();
+            dtd.ShowDialog(this);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OFD_import = new OpenFileDialog();
+            OFD_import.Filter = "Shapefile (*.shp)|*.shp";
+            OFD_import.ShowDialog();
+            Shapefile fs = new Shapefile();
+            try
             {
+                if (fs.Open(OFD_import.FileName))
+                {
+                    MessageBox.Show("选择要导入的表.");
+                    Database tb = new Database();
+                    tb.ShowDialog(this);
+                    if (tb.tablecluster.Text != "")
+                    {
+                        tb.m1.cmd = tb.m1.MyConnection.CreateCommand();
+                        int rownum = fs.Table.NumRows;
+                        Shape shp = new Shape();
+                        int ID = 0;
+                        int NOTE = 0;
+                        int busid = 0;
+                        double x = 0;
+                        double y = 0;
+                        string part = "";
+                        string NAME = "";
+                        switch (fs.ShapefileType)
+                        {
 
-                MessageBox.Show("Failed to open layer: " + axMap1.FileManager.get_ErrorMsg(axMap1.FileManager.LastErrorCode));
-
-                // in case the reason of failure is still unclear, let's ask GDAL for details
-                var gs = new GlobalSettings();
-                MessageBox.Show("Last GDAL error: " + gs.GdalLastErrorMsg);
+                            case ShpfileType.SHP_POINT:
+                                {
+                                    try
+                                    {
+                                        string sql = "INSERT INTO " + tb.tablecluster.Text + "(ID,X,Y,NOTE,NAME,BUS_ID) VALUES ";
+                                        for (int i = 0; i < rownum; i++)
+                                        {
+                                            x = (double)fs.Table.get_CellValue(1, i);
+                                            y = (double)fs.Table.get_CellValue(2, i);
+                                            ID = (int)fs.Table.get_CellValue(0, i);
+                                            NOTE = (int)fs.Table.get_CellValue(4, i);
+                                            NAME = fs.Table.get_CellValue(3, i).ToString();
+                                            busid = (int)fs.Table.get_CellValue(5, i);
+                                            if (i != rownum - 1)
+                                            {
+                                                //sql += "('" + ID + "','"+x+"','"+y+"',PointFromText('" + fs.get_Shape(i).ExportToWKT() + "'), '" + NOTE + "','" + NAME + "','" + busid + "'),";
+                                                sql += "('" + ID + "','" + x + "','" + y + "','" + NOTE + "','" + NAME + "','" + busid + "'),";
+                                            }
+                                            else
+                                            {
+                                                //sql += "('" + ID + "','" + x + "','" + y + "',PointFromText('" + fs.get_Shape(i).ExportToWKT() + "'), '" + NOTE + "','" + NAME + "','" + busid + "');";
+                                                sql += "('" + ID + "','" + x + "','" + y + "','" + NOTE + "','" + NAME + "','" + busid + "');";
+                                            }
+                                        }
+                                        tb.m1.cmd.CommandText = sql;
+                                        int j = tb.m1.cmd.ExecuteNonQuery();
+                                        switch (j)
+                                        {
+                                            case 0:
+                                                MessageBox.Show("执行成功!");
+                                                break;
+                                            default:
+                                                MessageBox.Show(j + " 行获得更新!");
+                                                break;
+                                        }
+                                        MessageBox.Show(part);
+                                    }
+                                    catch (OdbcException MyOdbcException)
+                                    {
+                                        string exp = "";
+                                        for (int i = 0; i < MyOdbcException.Errors.Count; i++)
+                                        {
+                                            exp = "ERROR #" + i + "\n" +
+                                                          "Message: " +
+                                                          MyOdbcException.Errors[i].Message + "\n" +
+                                                          "Native: " +
+                                                          MyOdbcException.Errors[i].NativeError.ToString() + "\n" +
+                                                          "Source: " +
+                                                          MyOdbcException.Errors[i].Source + "\n" +
+                                                          "SQL: " +
+                                                          MyOdbcException.Errors[i].SQLState + "\n";
+                                        }
+                                        MessageBox.Show(exp);
+                                    }
+                                }
+                                break;
+                            case ShpfileType.SHP_POLYLINE:
+                                {
+                                    try
+                                    {
+                                        int SID, EID, CLASS, TRAFFIC_L;
+                                        double LENGTH;
+                                        NAME = "";
+                                        string sql = "INSERT INTO " + tb.tablecluster.Text + "(ID,POLYLINE) VALUES ";
+                                        string conn_sql = "INSERT INTO " + "connectivity " + "(GID,SID,EID,CLASS,LENGTH,TRAFFIC_L,NAME) VALUES ";
+                                        for (int i = 0; i < rownum; i++)
+                                        {
+                                            NAME = fs.Table.get_CellValue(3, i).ToString();
+                                            SID = (int)fs.Table.get_CellValue(1, i);
+                                            EID = (int)fs.Table.get_CellValue(2, i);
+                                            CLASS = (int)fs.Table.get_CellValue(5, i);
+                                            TRAFFIC_L = (int)fs.Table.get_CellValue(6, i);
+                                            LENGTH = (double)fs.Table.get_CellValue(4, i);
+                                            ID = (int)fs.Table.get_CellValue(0, i);
+                                            if (i != rownum - 1)
+                                            {
+                                                conn_sql += "('" + ID + "','" + SID + "','" + EID + "','" + CLASS + "','" +LENGTH+"','"+ TRAFFIC_L + "','" + NAME + "'),";
+                                                //sql += "('" + ID + "',LineFromText('" + fs.get_Shape(i).ExportToWKT() + "')),";
+                                                sql += "('" + ID + "','" + fs.get_Shape(i).ExportToWKT().ToString() + "'),";
+                                            }
+                                            else
+                                            {
+                                                //sql += "('" + ID + "',LineFromText('" + fs.get_Shape(i).ExportToWKT() + "'));";
+                                                sql += "('" + ID + "','" + fs.get_Shape(i).ExportToWKT().ToString() + "');";
+                                                conn_sql += "('" + ID + "','" + SID + "','" + EID + "','" + CLASS + "','" + LENGTH + "','" + TRAFFIC_L + "','" + NAME + "');";
+                                            }
+                                        }
+                                        tb.m1.cmd.CommandText = sql;
+                                        int j = tb.m1.cmd.ExecuteNonQuery();
+                                        switch (j)
+                                        {
+                                            case 0:
+                                                MessageBox.Show("执行成功!");
+                                                break;
+                                            default:
+                                                MessageBox.Show(j + " 行获得更新!");
+                                                break;
+                                        }
+                                        tb.m1.cmd.CommandText = conn_sql;
+                                        j = tb.m1.cmd.ExecuteNonQuery();
+                                        switch (j)
+                                        {
+                                            case 0:
+                                                MessageBox.Show("执行成功!");
+                                                break;
+                                            default:
+                                                MessageBox.Show(j + " 行获得更新!");
+                                                break;
+                                        }
+                                        MessageBox.Show(part);
+                                    }
+                                    catch (OdbcException MyOdbcException)
+                                    {
+                                        string exp = "";
+                                        for (int i = 0; i < MyOdbcException.Errors.Count; i++)
+                                        {
+                                            exp = "ERROR #" + i + "\n" +
+                                                          "Message: " +
+                                                          MyOdbcException.Errors[i].Message + "\n" +
+                                                          "Native: " +
+                                                          MyOdbcException.Errors[i].NativeError.ToString() + "\n" +
+                                                          "Source: " +
+                                                          MyOdbcException.Errors[i].Source + "\n" +
+                                                          "SQL: " +
+                                                          MyOdbcException.Errors[i].SQLState + "\n";
+                                        }
+                                        MessageBox.Show(exp);
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("非法表.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("矢量文件打开失败.");
+                }
             }
-            else
+            catch (Exception exp)
             {
-                var l = axMap1.get_OgrLayer(drawHandle);
-                var sf = l.GetBuffer();
+                MessageBox.Show(exp.ToString());
             }
         }
+
+        private void toolStripLabel4_Click(object sender, EventArgs e)
+        {
+            dij = new Dijask();
+            dij.Show(this);
+        }
+
+        private void toolStripLabel5_Click(object sender, EventArgs e)
+        {
+            axMap1.RemoveAllLayers();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            detail_txtbox.Text = "";
+            if (checkedListBox1.CheckedItems.Count != 0)
+            {
+                for (int i = 0; i < checkedListBox1.CheckedItems.Count; i++)
+                {
+                    detail_txtbox.Text += dij.sline[checkedListBox1.Items.IndexOf(checkedListBox1.CheckedItems[i])];
+                    detail_txtbox.Text += "------------------------\r\n";
+                }
+            }
+        }
+
     }
 }

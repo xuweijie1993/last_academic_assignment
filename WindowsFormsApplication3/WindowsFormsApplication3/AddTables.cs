@@ -35,12 +35,12 @@ namespace WindowsFormsApplication3
         {
             if (tablename.Text == "")
             {
-                MessageBox.Show("Please input TABLE NAME first!");
+                MessageBox.Show("输入表名!");
                 return;
             }
             if (fieldname.Text == "" || fieldtype_cbx.Text == "")
             {
-                MessageBox.Show("Please input something meaningful!");
+                MessageBox.Show("错误输入!");
                 return;
             }
             if (fieldtype_cbx.Text == "VARCHAR")
@@ -131,16 +131,16 @@ namespace WindowsFormsApplication3
                     switch (i)
                     {
                         case 0:
-                            MessageBox.Show("Executed successfully!");
+                            MessageBox.Show("执行成功!");
                             break;
                         default:
-                            MessageBox.Show(i + "rows have changed!");
+                            MessageBox.Show(i + " 行获得修改!");
                             break;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No no no, that's not the right move!\nFirst and foremost,you should connect to a database!");
+                    MessageBox.Show("先连接数据库!");
                 }
             }
             catch (OdbcException MyOdbcException)
@@ -164,7 +164,7 @@ namespace WindowsFormsApplication3
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("The best way to create a table is to type the SQL syntax by yourself. However, if you don't know much about SQL, then it may give you a little help, but don't expect it to be robust.", "Attention");
+            MessageBox.Show("无法保证", "Attention");
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -180,16 +180,16 @@ namespace WindowsFormsApplication3
                     switch (i)
                     {
                         case 0:
-                            MessageBox.Show("Executed successfully!");
+                            MessageBox.Show("执行成功!");
                             break;
                         default:
-                            MessageBox.Show(i + "rows have changed!");
+                            MessageBox.Show(i + " 行获得修改!");
                             break;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No no no, that's not the right move!\nFirst and foremost,you should connect to a database!");
+                    MessageBox.Show("先连接数据库!");
                 }
             }
             catch (OdbcException MyOdbcException)

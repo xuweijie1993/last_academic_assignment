@@ -47,7 +47,7 @@ namespace WindowsFormsApplication3
                             }
                         }
                         connect_status.Text = "Connecting with " + FORM_DB.m1.MyConnection.DataSource + " to database: " + FORM_DB.m1.MyConnection.Database;
-                        MessageBox.Show("LOGGED IN SUCESSFULLY!! \nNow you should select a database to which you want to connect and press ACCEPT button again!");
+                        MessageBox.Show("登陆成功!! \n选择需要连接的数据库!");
                     }
                     else
                     {
@@ -64,7 +64,7 @@ namespace WindowsFormsApplication3
                             }
                         }
                         connect_status.Text = "Connecting with " + FORM_DB.m1.MyConnection.DataSource + " to database: " + FORM_DB.m1.MyConnection.Database;
-                        MessageBox.Show("SUCCESSFUL!! \nPlease close this window and you'll see all tables of this database in the mainwidow!");
+                        MessageBox.Show("成功!! \n主窗口获得表名!");
                     }
                         
                 }
@@ -97,7 +97,7 @@ namespace WindowsFormsApplication3
             }
             else
             {
-                connect_status.Text = "Free to connect.";
+                connect_status.Text = "请链接.";
             }
         }
 
@@ -106,7 +106,7 @@ namespace WindowsFormsApplication3
             if (FORM_DB.m1.MyConnection.State == ConnectionState.Open)
             {
                 FORM_DB.m1.MyConnection.Close();
-                connect_status.Text = "Free to connect.";
+                connect_status.Text = "请链接.";
             }
         }
     }

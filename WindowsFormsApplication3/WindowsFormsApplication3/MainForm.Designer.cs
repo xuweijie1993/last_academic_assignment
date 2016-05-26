@@ -36,13 +36,18 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
             this.axMap1 = new AxMapWinGIS.AxMap();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.draw_indicator = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.legend = new System.Windows.Forms.TabPage();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.detail_txtbox = new System.Windows.Forms.TextBox();
+            this.legend = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.toolStrip_mainform.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMap1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -62,7 +67,10 @@
             this.toolStripButton1,
             this.toolStripLabel2,
             this.toolStripLabel3,
-            this.toolStripButton2});
+            this.toolStripButton2,
+            this.toolStripButton3,
+            this.toolStripLabel4,
+            this.toolStripLabel5});
             this.toolStrip_mainform.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_mainform.Name = "toolStrip_mainform";
             this.toolStrip_mainform.Size = new System.Drawing.Size(739, 25);
@@ -72,15 +80,15 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(64, 22);
-            this.toolStripLabel1.Text = "OPENMAP";
+            this.toolStripLabel1.Size = new System.Drawing.Size(55, 22);
+            this.toolStripLabel1.Text = "加载SHP";
             this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // toolStripLabel_db
             // 
             this.toolStripLabel_db.Name = "toolStripLabel_db";
-            this.toolStripLabel_db.Size = new System.Drawing.Size(63, 22);
-            this.toolStripLabel_db.Text = "DATABASE";
+            this.toolStripLabel_db.Size = new System.Drawing.Size(72, 22);
+            this.toolStripLabel_db.Text = "打开数据库";
             this.toolStripLabel_db.Click += new System.EventHandler(this.toolStripLabel_db_Click);
             // 
             // toolStripButton1
@@ -90,21 +98,21 @@
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Text = "画图";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(27, 22);
-            this.toolStripLabel2.Text = "Pan";
+            this.toolStripLabel2.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel2.Text = "平移";
             this.toolStripLabel2.Click += new System.EventHandler(this.toolStripLabel2_Click);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(42, 22);
-            this.toolStripLabel3.Text = "Cursor";
+            this.toolStripLabel3.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel3.Text = "鼠标";
             this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
             // 
             // toolStripButton2
@@ -114,8 +122,32 @@
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Text = "加载数据库图层";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "导入数据";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel4.Text = "查询";
+            this.toolStripLabel4.Click += new System.EventHandler(this.toolStripLabel4_Click);
+            // 
+            // toolStripLabel5
+            // 
+            this.toolStripLabel5.Name = "toolStripLabel5";
+            this.toolStripLabel5.Size = new System.Drawing.Size(85, 22);
+            this.toolStripLabel5.Text = "移除所有图层";
+            this.toolStripLabel5.Click += new System.EventHandler(this.toolStripLabel5_Click);
             // 
             // axMap1
             // 
@@ -124,7 +156,7 @@
             this.axMap1.Location = new System.Drawing.Point(0, 0);
             this.axMap1.Name = "axMap1";
             this.axMap1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMap1.OcxState")));
-            this.axMap1.Size = new System.Drawing.Size(627, 394);
+            this.axMap1.Size = new System.Drawing.Size(623, 394);
             this.axMap1.TabIndex = 1;
             this.axMap1.MouseDownEvent += new AxMapWinGIS._DMapEvents_MouseDownEventHandler(this.axMap1_MouseDownEvent);
             // 
@@ -147,6 +179,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 25);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -158,7 +191,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.axMap1);
             this.splitContainer1.Size = new System.Drawing.Size(739, 394);
-            this.splitContainer1.SplitterDistance = 108;
+            this.splitContainer1.SplitterDistance = 112;
             this.splitContainer1.TabIndex = 3;
             // 
             // tabControl1
@@ -168,28 +201,54 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(108, 394);
+            this.tabControl1.Size = new System.Drawing.Size(112, 394);
             this.tabControl1.TabIndex = 0;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(3, 3);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(63, 68);
+            this.checkedListBox1.TabIndex = 0;
+            // 
+            // detail_txtbox
+            // 
+            this.detail_txtbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.detail_txtbox.Location = new System.Drawing.Point(3, 77);
+            this.detail_txtbox.Multiline = true;
+            this.detail_txtbox.Name = "detail_txtbox";
+            this.detail_txtbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.detail_txtbox.Size = new System.Drawing.Size(98, 288);
+            this.detail_txtbox.TabIndex = 1;
             // 
             // legend
             // 
+            this.legend.Controls.Add(this.button1);
+            this.legend.Controls.Add(this.detail_txtbox);
             this.legend.Controls.Add(this.checkedListBox1);
             this.legend.Location = new System.Drawing.Point(4, 22);
             this.legend.Name = "legend";
             this.legend.Padding = new System.Windows.Forms.Padding(3);
-            this.legend.Size = new System.Drawing.Size(100, 368);
+            this.legend.Size = new System.Drawing.Size(104, 368);
             this.legend.TabIndex = 1;
-            this.legend.Text = "tabPage2";
+            this.legend.Text = "搜索结果";
             this.legend.UseVisualStyleBackColor = true;
             // 
-            // checkedListBox1
+            // button1
             // 
-            this.checkedListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(94, 362);
-            this.checkedListBox1.TabIndex = 0;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(72, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 71);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "显示结果";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
@@ -201,7 +260,7 @@
             this.Controls.Add(this.toolStrip_mainform);
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "主窗口";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStrip_mainform.ResumeLayout(false);
             this.toolStrip_mainform.PerformLayout();
@@ -214,6 +273,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.legend.ResumeLayout(false);
+            this.legend.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,9 +292,14 @@
         public AxMapWinGIS.AxMap axMap1;
         private System.Windows.Forms.ToolStripStatusLabel draw_indicator;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+        public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage legend;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TextBox detail_txtbox;
+        public System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button button1;
 
     }
 }

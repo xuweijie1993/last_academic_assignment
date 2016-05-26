@@ -57,8 +57,8 @@
             // toolStripLabel_OPENDB
             // 
             this.toolStripLabel_OPENDB.Name = "toolStripLabel_OPENDB";
-            this.toolStripLabel_OPENDB.Size = new System.Drawing.Size(58, 22);
-            this.toolStripLabel_OPENDB.Text = "OPEN_DB";
+            this.toolStripLabel_OPENDB.Size = new System.Drawing.Size(72, 22);
+            this.toolStripLabel_OPENDB.Text = "打开数据库";
             this.toolStripLabel_OPENDB.Click += new System.EventHandler(this.toolStripLabel_OPENDB_Click);
             // 
             // tablecluster
@@ -70,15 +70,15 @@
             // update_datagrid
             // 
             this.update_datagrid.Name = "update_datagrid";
-            this.update_datagrid.Size = new System.Drawing.Size(88, 22);
-            this.update_datagrid.Text = "UPDATE_TABLE";
+            this.update_datagrid.Size = new System.Drawing.Size(72, 22);
+            this.update_datagrid.Text = "更新数据库";
             this.update_datagrid.Click += new System.EventHandler(this.update_datagrid_Click);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(69, 22);
-            this.toolStripLabel1.Text = "ADD_TABLE";
+            this.toolStripLabel1.Size = new System.Drawing.Size(46, 22);
+            this.toolStripLabel1.Text = "添加表";
             this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // toolStripButton1
@@ -109,7 +109,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Database";
-            this.Text = "Database";
+            this.Text = "数据库查看";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Database_FormClosing);
             this.Load += new System.EventHandler(this.Database_Load);
             this.toolStrip1.ResumeLayout(false);

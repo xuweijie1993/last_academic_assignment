@@ -52,9 +52,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "User Name";
+            this.label1.Text = "用户名";
             // 
             // username
             // 
@@ -75,9 +75,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(118, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Password";
+            this.label2.Text = "密码";
             // 
             // server
             // 
@@ -94,7 +94,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Server";
+            this.label3.Text = "服务器";
             // 
             // button1
             // 
@@ -102,7 +102,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Accept";
+            this.button1.Text = "确认";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -119,9 +119,9 @@
             this.lable6.AutoSize = true;
             this.lable6.Location = new System.Drawing.Point(226, 55);
             this.lable6.Name = "lable6";
-            this.lable6.Size = new System.Drawing.Size(41, 12);
+            this.lable6.Size = new System.Drawing.Size(29, 12);
             this.lable6.TabIndex = 11;
-            this.lable6.Text = "Option";
+            this.lable6.Text = "选项";
             // 
             // port
             // 
@@ -138,16 +138,16 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Port";
+            this.label5.Text = "端口";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(14, 55);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 7;
-            this.label6.Text = "DataBase";
+            this.label6.Text = "数据库";
             // 
             // database
             // 
@@ -163,7 +163,7 @@
             this.disconnect.Name = "disconnect";
             this.disconnect.Size = new System.Drawing.Size(75, 23);
             this.disconnect.TabIndex = 14;
-            this.disconnect.Text = "Disconnect";
+            this.disconnect.Text = "断开";
             this.disconnect.UseVisualStyleBackColor = true;
             this.disconnect.Click += new System.EventHandler(this.disconnect_Click);
             // 
@@ -207,7 +207,7 @@
             this.MaximumSize = new System.Drawing.Size(353, 190);
             this.MinimumSize = new System.Drawing.Size(353, 190);
             this.Name = "ConnectConfig";
-            this.Text = "ConnectConfig";
+            this.Text = "连接设置";
             this.Load += new System.EventHandler(this.ConnectConfig_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

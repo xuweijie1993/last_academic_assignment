@@ -79,7 +79,7 @@ namespace WindowsFormsApplication3
             }
             else
             {
-                MessageBox.Show("That's certainly wouldn't update anything untill you've really passed it something!");
+                MessageBox.Show("无数据更新!");
             }
         }
 
@@ -121,14 +121,14 @@ namespace WindowsFormsApplication3
         {
             if (m1.MyConnection.State == ConnectionState.Open)
             {
-                if (MessageBox.Show("Your conncetion with the database will be close, be sure you have updated your changes on the records.", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("确认关闭？", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     m1.opened_table = "";
                     if (m1.draw_int_indicator == 1)
                     {
                         m1.axMap1.ClearDrawing(m1.drawHandle);
                     }
-                    m1.MyConnection.Close();
+                    //m1.MyConnection.Close();
 
                 }
                 else
